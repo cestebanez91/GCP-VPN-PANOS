@@ -1,0 +1,74 @@
+<entry name="{{ gcp_vpn_name }}-IKE-{{ panos_tunnel_1 }}">
+ <authentication>
+   <pre-shared-key>
+     <key>{{ panos_ike_presharedkey_1 }}</key>
+   </pre-shared-key>
+ </authentication>
+ <protocol>
+   <ikev1>
+     <dpd>
+       <enable>yes</enable>
+       <interval>10</interval>
+     </dpd>
+     <ike-crypto-profile>GCPIKECrypto</ike-crypto-profile>
+     <exchange-mode>auto</exchange-mode>
+   </ikev1>
+   <ikev2>
+     <dpd>
+       <enable>yes</enable>
+     </dpd>
+   </ikev2>
+   <version>ikev1</version>
+ </protocol>
+ <protocol-common>
+   <nat-traversal>
+     <enable>no</enable>
+   </nat-traversal>
+   <fragmentation>
+     <enable>no</enable>
+   </fragmentation>
+ </protocol-common>
+ <local-address>
+   <interface>{{ panos_ipsec_interface }}</interface>
+ </local-address>
+ <peer-address>
+   <ip>{{ gcp_vgw_ip_1 }}</ip>
+ </peer-address>
+</entry>
+<entry name="{{ gcp_vpn_name }}-IKE-{{ panos_tunnel_2 }}">
+ <authentication>
+   <pre-shared-key>
+     <key>{{ panos_ike_presharedkey_2 }}</key>
+   </pre-shared-key>
+ </authentication>
+ <protocol>
+   <ikev1>
+     <dpd>
+       <enable>yes</enable>
+       <interval>10</interval>
+     </dpd>
+     <ike-crypto-profile>GCPIKECrypto</ike-crypto-profile>
+     <exchange-mode>auto</exchange-mode>
+   </ikev1>
+   <ikev2>
+     <dpd>
+       <enable>yes</enable>
+     </dpd>
+   </ikev2>
+   <version>ikev1</version>
+ </protocol>
+ <protocol-common>
+   <nat-traversal>
+     <enable>no</enable>
+   </nat-traversal>
+   <fragmentation>
+     <enable>no</enable>
+   </fragmentation>
+ </protocol-common>
+ <local-address>
+   <interface>{{ panos_ipsec_interface }}</interface>
+ </local-address>
+ <peer-address>
+   <ip>{{ gcp_vgw_ip_2 }}</ip>
+ </peer-address>
+</entry>

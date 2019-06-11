@@ -1,0 +1,151 @@
+# skillet preamble information used by panhandler
+# ---------------------------------------------------------------------
+# unique snippet name
+name: gcpvpn
+# label used for menu selection
+label: GCP VPN IKE/IPSec
+description: Configure IKE, IPSec and BGP for PAN-OS to connect to GCP VPN Gateway
+
+# type of device configuration
+# common types are panorama, panos, and template
+# https://github.com/PaloAltoNetworks/panhandler/blob/develop/docs/metadata_configuration.rst
+type: panos
+# preload static or default-based templates
+extends:
+
+# grouping of like snippets for dynamic menu creation in panhandler
+labels:
+  collection:
+    - cestebanez
+
+# ---------------------------------------------------------------------
+# end of preamble section
+
+# variables section
+# ---------------------------------------------------------------------
+# variables used in the configuration templates
+# type_hint defines the form field used by panhandler
+# type_hints can be text, ip_address, or dropdown
+variables:
+  - name: gcp_vpn_name
+    description: Give a name to your AWS VPN configuration
+    default:
+  - name: gcp_vgw_ip_1
+    description: Public IP address of GCP VPN Gateway for tunnel 1 (Interface: 0)
+    default:
+  - name: gcp_vgw_ip_2
+    description: Public IP address of GCP VPN Gateway for tunnel 2 (Interface: 1)
+    default:
+    type_hint: ip_address
+  - name: gcp_bgp_peer_1
+    description: GCP BGP Peer for tunnel 1
+    default:
+    type_hint: ip_address
+  - name: gcp_bgp_peer_2
+    description: GCP BGP Peer for tunnel 2
+    default:
+    type_hint: ip_address
+  - name: gcp_bgp_as
+    description: GCP VGW BGP AS - Specify your GCP BGP AS if custom. Must match the value you configure in GCP VPN gateway BGP configuration.
+    default: 65500
+    type_hint: text
+  - name: panos_ipsec_interface
+    description: PAN-OS ethernet interface for IKE/IPsec - Ethernet interface for untrust initiating the VPN connection
+    default: ethernet1/1
+    type_hint: dropdown
+    dd_list:
+      - key: ethernet1/1
+        value: ethernet1/1
+      - key: ethernet1/2
+        value: ethernet1/2
+      - key: ethernet1/3
+        value: ethernet1/3
+      - key: ethernet1/4
+        value: ethernet1/4
+  - name: panos_tunnel_1
+    description: PAN-OS Tunnel 1 inteface number - If you are using an existing tunnel interface, opt for another than tunnel.1
+    default: tunnel.1
+    type_hint: dropdown
+    dd_list:
+      - key: tunnel.1
+        value: tunnel.1
+      - key: tunnel.2
+        value: tunnel.2
+      - key: tunnel.3
+        value: tunnel.3
+      - key: tunnel.4
+        value: tunnel.4
+  - name: panos_tunnel_ip_1
+    description: IP address for tunnel 1 interface (same as BGP Peer ID defined in GCP for remote device, must be with /30)
+    default:
+    type_hint: text
+  - name: panos_ike_presharedkey_1
+    description: PAN-OS IKE preshared key for tunnel 1
+    default:
+    type_hint: text
+  - name: panos_tunnel_2
+    description: PAN-OS Tunnel 2 inteface number - If you are using an existing tunnel interface, opt for another than tunnel.2
+    default: tunnel.1
+    type_hint: dropdown
+    dd_list:
+      - key: tunnel.2
+        value: tunnel.2
+      - key: tunnel.3
+        value: tunnel.3
+      - key: tunnel.4
+        value: tunnel.4
+      - key: tunnel.5
+        value: tunnel.5
+  - name: panos_tunnel_ip_2
+    description: IP address for tunnel 2 interface (same as BGP Peer ID defined in GCP for remote device, must be with /30)
+    default:
+    type_hint: text
+  - name: panos_ike_presharedkey_2
+    description: PAN-OS IKE preshared key for tunnel 2
+    default:
+    type_hint: text
+  - name: panos_virtualrouter
+    description: PAN-OS virtual router name - If you want to use another than default virtual router instance.
+    default: default
+    type_hint: text
+  - name: panos_bgp_peer
+    description: PAN-OS BGP Router ID (same as BGP Peer ID defined in GCP for remote device, without /30)
+    default:
+    type_hint: ip_address
+  - name: panos_bgp_as
+    description: PAN-OS BGP AS - Specify your local BGP AS if needed. Must match the value you configure in AWS Customer Gateway.
+    default: 65000
+    type_hint: text
+
+# ---------------------------------------------------------------------
+# end of variables section
+
+# snippets section
+# ---------------------------------------------------------------------
+# snippets used for api configuration including xpath and element as file name
+# files will load in the order listed
+snippets:
+  - name: interface
+    xpath: /config/devices/entry[@name='localhost.localdomain']/network/interface
+    file: interface.xml
+  - name: routing
+    xpath: /config/devices/entry[@name='localhost.localdomain']/network/virtual-router
+    file: routing.xml
+  - name: zone
+    xpath: /config/devices/entry[@name='localhost.localdomain']/vsys/entry[@name='vsys1']/zone
+    file: zone.xml
+  - name: ikecrypto
+    xpath: /config/devices/entry[@name='localhost.localdomain']/network/ike/crypto-profiles/ike-crypto-profiles
+    file: ikecrypto.xml
+  - name: ikeprofile
+    xpath: /config/devices/entry[@name='localhost.localdomain']/network/ike/gateway
+    file: ikeprofile.xml
+  - name: ipseccrypto
+    xpath: /config/devices/entry[@name='localhost.localdomain']/network/ike/crypto-profiles/ipsec-crypto-profiles
+    file: ipseccrypto.xml
+  - name: ipsecprofile
+    xpath: /config/devices/entry[@name='localhost.localdomain']/network/tunnel/ipsec
+    file: ipsecprofile.xml
+
+  # ---------------------------------------------------------------------
+# end of snippets section

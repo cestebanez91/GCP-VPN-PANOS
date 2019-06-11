@@ -1,0 +1,24 @@
+<entry name="{{ gcp_vpn_name }}-IPSec-{{ panos_tunnel_1 }}">
+ <auto-key>
+   <ike-gateway>
+     <entry name="{{ gcp_vpn_name }}-IKE-{{ panos_tunnel_1 }}"/>
+   </ike-gateway>
+   <ipsec-crypto-profile>GCPIPSecCrypto</ipsec-crypto-profile>
+ </auto-key>
+ <tunnel-monitor>
+   <enable>no</enable>
+ </tunnel-monitor>
+ <tunnel-interface>{{ panos_tunnel_1 }}</tunnel-interface>
+</entry>
+<entry name="{{ gcp_vpn_name }}-IPSec-{{ panos_tunnel_2 }}">
+ <auto-key>
+   <ike-gateway>
+     <entry name="{{ gcp_vpn_name }}-IKE-{{ panos_tunnel_2 }}"/>
+   </ike-gateway>
+   <ipsec-crypto-profile>GCPIPSecCrypto</ipsec-crypto-profile>
+ </auto-key>
+ <tunnel-monitor>
+   <enable>no</enable>
+ </tunnel-monitor>
+ <tunnel-interface>{{ panos_tunnel_2 }}</tunnel-interface>
+</entry>
