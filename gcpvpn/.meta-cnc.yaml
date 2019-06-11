@@ -1,10 +1,10 @@
 # skillet preamble information used by panhandler
 # ---------------------------------------------------------------------
 # unique snippet name
-name: awsvgw
+name: gcpvpn
 # label used for menu selection
-label: AWS VGW IKE/IPSec
-description: Configure IKE, IPSec and BGP for PAN-OS to connect to AWS VGW
+label: GCP VPN IKE/IPSec
+description: This Skillet will configure IKE, IPSec and BGP for PAN-OS to connect to GCP VPN Gateway
 
 # type of device configuration
 # common types are panorama, panos, and template
@@ -27,27 +27,27 @@ labels:
 # type_hint defines the form field used by panhandler
 # type_hints can be text, ip_address, or dropdown
 variables:
-  - name: aws_vpn_name
+  - name: gcp_vpn_name
     description: Give a name to your AWS VPN configuration
     default:
-  - name: aws_vgw_ip_1
-    description: Public IP address of AWS VPN Gateway for tunnel 1
+  - name: gcp_vgw_ip_1
+    description: Public IP address of GCP VPN Gateway for tunnel 1, Interface 0
     default:
-  - name: aws_vgw_ip_2
-    description: Public IP address of AWS VPN Gateway for tunnel 2
-    default:
-    type_hint: ip_address
-  - name: aws_bgp_peer_1
-    description: AWS BGP Peer for tunnel 1
+  - name: gcp_vgw_ip_2
+    description: Public IP address of GCP VPN Gateway for tunnel 2, Interface 1
     default:
     type_hint: ip_address
-  - name: aws_bgp_peer_2
-    description: AWS BGP Peer for tunnel 2
+  - name: gcp_bgp_peer_1
+    description: GCP BGP Peer for tunnel 1
     default:
     type_hint: ip_address
-  - name: aws_bgp_as
-    description: AWS VGW BGP AS - Specify your AWS BGP AS if custom. Must match the value you configure in AWS VPN Gateway.
-    default: 64512
+  - name: gcp_bgp_peer_2
+    description: GCP BGP Peer for tunnel 2
+    default:
+    type_hint: ip_address
+  - name: gcp_bgp_as
+    description: GCP VGW BGP AS - Specify your GCP BGP AS if custom. Must match the value you configure in GCP VPN gateway BGP configuration.
+    default: 65500
     type_hint: text
   - name: panos_ipsec_interface
     description: PAN-OS ethernet interface for IKE/IPsec - Ethernet interface for untrust initiating the VPN connection
@@ -76,7 +76,7 @@ variables:
       - key: tunnel.4
         value: tunnel.4
   - name: panos_tunnel_ip_1
-    description: IP address for tunnel 1 interface
+    description: IP address for tunnel 1 interface (same as BGP Peer ID defined in GCP for remote device, must be with /30)
     default:
     type_hint: text
   - name: panos_ike_presharedkey_1
@@ -97,7 +97,7 @@ variables:
       - key: tunnel.5
         value: tunnel.5
   - name: panos_tunnel_ip_2
-    description: IP address for tunnel 2 interface
+    description: IP address for tunnel 2 interface (same as BGP Peer ID defined in GCP for remote device, must be with /30)
     default:
     type_hint: text
   - name: panos_ike_presharedkey_2
@@ -109,7 +109,7 @@ variables:
     default: default
     type_hint: text
   - name: panos_bgp_peer
-    description: PAN-OS BGP Router ID
+    description: PAN-OS BGP Router ID (same as BGP Peer ID defined in GCP for remote device, without /30)
     default:
     type_hint: ip_address
   - name: panos_bgp_as
