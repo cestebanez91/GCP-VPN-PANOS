@@ -1,0 +1,8 @@
+<entry name="GCPVPN">
+ <network>
+   <layer3>
+     <member>{{ panos_tunnel_1 }}</member>
+     <member>{{ panos_tunnel_2 }}</member>
+   </layer3>
+ </network>
+</entry>

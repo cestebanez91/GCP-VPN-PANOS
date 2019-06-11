@@ -1,0 +1,16 @@
+<tunnel>
+ <units>
+   <entry name="{{ panos_tunnel_1 }}">
+     <ip>
+       <entry name="{{ panos_tunnel_ip_1 }}"/>
+     </ip>
+     <mtu>1427</mtu>
+   </entry>
+   <entry name="{{ panos_tunnel_2 }}">
+     <ip>
+       <entry name="{{ panos_tunnel_ip_2 }}"/>
+     </ip>
+     <mtu>1427</mtu>
+   </entry>
+ </units>
+</tunnel>
