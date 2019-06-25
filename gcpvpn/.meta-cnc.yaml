@@ -30,6 +30,9 @@ variables:
   - name: gcp_vpn_name
     description: Give a name to your AWS VPN configuration
     default:
+  - name: fw_public_ip
+    description: Public IP address of your PAN-OS device to connect to GCP VPN Gateway for both tunnels
+    default:
   - name: gcp_vgw_ip_1
     description: Public IP address of GCP VPN Gateway for tunnel 1, Interface 0
     default:

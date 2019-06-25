@@ -18,7 +18,7 @@
        <enable>yes</enable>
      </dpd>
    </ikev2>
-   <version>ikev1</version>
+   <version>ikev2</version>
  </protocol>
  <protocol-common>
    <nat-traversal>
@@ -34,6 +34,14 @@
  <peer-address>
    <ip>{{ gcp_vgw_ip_1 }}</ip>
  </peer-address>
+ <peer-id>
+   <id>{{ gcp_vgw_ip_1 }}</id>
+   <type>ipaddr</type>
+ </peer-id>
+ <local-id>
+   <id>{{ fw_public_ip }}</id>
+   <type>ipaddr</type>
+ </local-id>
 </entry>
 <entry name="{{ gcp_vpn_name }}-IKE-{{ panos_tunnel_2 }}">
  <authentication>
@@ -55,7 +63,7 @@
        <enable>yes</enable>
      </dpd>
    </ikev2>
-   <version>ikev1</version>
+   <version>ikev2</version>
  </protocol>
  <protocol-common>
    <nat-traversal>
@@ -71,4 +79,12 @@
  <peer-address>
    <ip>{{ gcp_vgw_ip_2 }}</ip>
  </peer-address>
+ <peer-id>
+   <id>{{ gcp_vgw_ip_2 }}</id>
+   <type>ipaddr</type>
+ </peer-id>
+ <local-id>
+   <id>{{ fw_public_ip }}</id>
+   <type>ipaddr</type>
+ </local-id>
 </entry>

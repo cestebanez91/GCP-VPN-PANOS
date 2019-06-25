@@ -1,28 +1,28 @@
-# AWS-VGW-PANOS
-Configure IKE/IPSec + BGP for PAN-OS and connect to AWS Virtual Private Gateway
+# GCP-VGW-PANOS
+Configure IKE/IPSec + BGP for PAN-OS and connect to GCP VPN Gateway
 
 ## Brief Description
-This skillet will configure IKE/IPSec parameters and BGP in order to connect PAN-OS to AWS VPN Gateway.
+This skillet will configure IKE/IPSec parameters and BGP in order to connect PAN-OS to GCP VPN Gateway.
 
 ## Skillet Details
 - Authoring Group: Public Cloud, Networking, IPSec.
-- Documentation: AWS VGW IPSec PANOS.pdf
-- Github Location: https://github.com/cestebanez91/AWS-VGW-PANOS
+- Documentation: GCP VGW IPSec PANOS.pdf
+- Github Location: https://github.com/cestebanez91/GCP-VPN-PANOS
 - PAN-OS Supported: 8.1.0 minimum
 - Cloud Provider(s) Supported:  AWS only dedicated
 - Type of Skillet: PAN-OS, multiple xml.
 - Purpose: Config
 
 ## Detail Description
-This skillet will be used to connect your Palo Alto Network device (physical or VM-series) to any AWS Virtual Private Gateway to establish an IPSec connection.
-Based on parameters given by AWS (AWS VGW public IP addresses, BGP peer...).
+This skillet will be used to connect your Palo Alto Network device (physical or VM-series) to any GCP VPN Gateway to establish an IPSec connection.
+Based on parameters given by GCP (GCP VPN Gateway public IP addresses, BGP peer...).
 It will create two new IKE gateways and two new Ipsec tunnels, whatever this is already existing, iteration is possible up to four IKE gateways and four IPSec tunnels.
-IKE and IPSec profile are compliant to AWS VGW expectations.
+IKE and IPSec profile are compliant to GCP VPN service expectations.
 
 This skillet will configure PAN-OS with following features:
--	IKE crypto profile compliant with AWS VGW
--	IPSec crypto profile compliant with AWS VGW
--	IKE gateways to connect to AWS VGW
+-	IKE crypto profile compliant with GCP VPN gateway
+-	IPSec crypto profile compliant with GCP VPN Gateway
+-	IKE gateways to connect to GCP VPN
 -	IPSec tunnels
 -	Tunnel interfaces,and Zone "VPN"
 -	Routing and BGP configuration with distribution profile activated for connected routes
@@ -39,7 +39,7 @@ This skillet will configure PAN-OS with following features:
 
 
 # Prerequisite
-In order to run this skillet, you need a running default configuration for PAN-OS and AWS.
+In order to run this skillet, you need a running default configuration for PAN-OS and GCP.
 ## PAN-OS
 - VM-Series or physical device running PAN-OS 8.1 running
 - untrust and trust interfaces configured
@@ -47,10 +47,11 @@ In order to run this skillet, you need a running default configuration for PAN-O
 - untrust interface is binded to a Public ip address
 - Security Policies to allow outbound traffic
 
-## AWS
-- VPC and Virtual Private Gateway deployed and attached to a VPC
-- AWS Customer Gateway configured
-- AWS VPN Site-to-Site VPN connection configured with configuration file downloaded for PAN-OS
+## GCP
+- VPC and VPN Gateway deployed and attached to a VPC
+- GCP Cloud VPN Gateway configured with interface 0 and interface 1
+- GCP Peer VPN Gateway setup (your PAN-OS device)
+- GCP Cloud VPN Tunnel configured
 
 
 
