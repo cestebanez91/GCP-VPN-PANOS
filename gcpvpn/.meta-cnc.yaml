@@ -49,7 +49,7 @@ variables:
     default:
     type_hint: ip_address
   - name: gcp_bgp_as
-    description: GCP VGW BGP AS - Specify your GCP BGP AS if custom. Must match the value you configure in GCP VPN gateway BGP configuration.
+    description: GCP Cloud VPN Tunnel BGP AS - Specify your GCP BGP AS if custom. Must match the value you configure in GCP VPN gateway BGP configuration.
     default: 65500
     type_hint: text
   - name: panos_ipsec_interface
